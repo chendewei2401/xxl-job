@@ -1,16 +1,13 @@
 package com.xxl.job.admin.controller;
 
-import com.xxl.job.admin.core.model.XxlJobGroup;
-import com.xxl.job.admin.core.model.XxlJobInfo;
-import com.xxl.job.admin.core.model.XxlJobLog;
-import com.xxl.job.admin.core.schedule.XxlJobDynamicScheduler;
-import com.xxl.job.admin.dao.XxlJobGroupDao;
-import com.xxl.job.admin.dao.XxlJobInfoDao;
-import com.xxl.job.admin.dao.XxlJobLogDao;
-import com.xxl.job.core.biz.ExecutorBiz;
-import com.xxl.job.core.biz.model.LogResult;
-import com.xxl.job.core.biz.model.ReturnT;
-import com.xxl.job.core.rpc.netcom.NetComClientProxy;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
@@ -21,12 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.xxl.job.admin.core.model.XxlJobGroup;
+import com.xxl.job.admin.core.model.XxlJobInfo;
+import com.xxl.job.admin.core.model.XxlJobLog;
+import com.xxl.job.admin.dao.XxlJobGroupDao;
+import com.xxl.job.admin.dao.XxlJobInfoDao;
+import com.xxl.job.admin.dao.XxlJobLogDao;
+import com.xxl.job.admin.core.model.ReturnT;
 
 /**
  * @author chendewei@cmhi.chinamobile.com
@@ -177,36 +175,36 @@ public class JobLogController {
 //		}
 //	}
 
-	@RequestMapping("/clearLog")
-	@ResponseBody
-	public ReturnT<String> clearLog(int jobGroup, int jobId, int type){
-
-		Date clearBeforeTime = null;
-		int clearBeforeNum = 0;
-		if (type == 1) {
-			clearBeforeTime = DateUtils.addMonths(new Date(), -1);	// 清理一个月之前日志数据
-		} else if (type == 2) {
-			clearBeforeTime = DateUtils.addMonths(new Date(), -3);	// 清理三个月之前日志数据
-		} else if (type == 3) {
-			clearBeforeTime = DateUtils.addMonths(new Date(), -6);	// 清理六个月之前日志数据
-		} else if (type == 4) {
-			clearBeforeTime = DateUtils.addYears(new Date(), -1);	// 清理一年之前日志数据
-		} else if (type == 5) {
-			clearBeforeNum = 1000;		// 清理一千条以前日志数据
-		} else if (type == 6) {
-			clearBeforeNum = 10000;		// 清理一万条以前日志数据
-		} else if (type == 7) {
-			clearBeforeNum = 30000;		// 清理三万条以前日志数据
-		} else if (type == 8) {
-			clearBeforeNum = 100000;	// 清理十万条以前日志数据
-		} else if (type == 9) {
-			clearBeforeNum = 0;			// 清理所有日志数据
-		} else {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, "清理类型参数异常");
-		}
-
-		xxlJobLogDao.clearLog(jobGroup, jobId, clearBeforeTime, clearBeforeNum);
-		return ReturnT.SUCCESS;
-	}
+//	@RequestMapping("/clearLog")
+//	@ResponseBody
+//	public ReturnT<String> clearLog(int jobGroup, int jobId, int type){
+//
+//		Date clearBeforeTime = null;
+//		int clearBeforeNum = 0;
+//		if (type == 1) {
+//			clearBeforeTime = DateUtils.addMonths(new Date(), -1);	// 清理一个月之前日志数据
+//		} else if (type == 2) {
+//			clearBeforeTime = DateUtils.addMonths(new Date(), -3);	// 清理三个月之前日志数据
+//		} else if (type == 3) {
+//			clearBeforeTime = DateUtils.addMonths(new Date(), -6);	// 清理六个月之前日志数据
+//		} else if (type == 4) {
+//			clearBeforeTime = DateUtils.addYears(new Date(), -1);	// 清理一年之前日志数据
+//		} else if (type == 5) {
+//			clearBeforeNum = 1000;		// 清理一千条以前日志数据
+//		} else if (type == 6) {
+//			clearBeforeNum = 10000;		// 清理一万条以前日志数据
+//		} else if (type == 7) {
+//			clearBeforeNum = 30000;		// 清理三万条以前日志数据
+//		} else if (type == 8) {
+//			clearBeforeNum = 100000;	// 清理十万条以前日志数据
+//		} else if (type == 9) {
+//			clearBeforeNum = 0;			// 清理所有日志数据
+//		} else {
+//			return new ReturnT<String>(ReturnT.FAIL_CODE, "清理类型参数异常");
+//		}
+//
+//		xxlJobLogDao.clearLog(jobGroup, jobId, clearBeforeTime, clearBeforeNum);
+//		return ReturnT.SUCCESS;
+//	}
 
 }

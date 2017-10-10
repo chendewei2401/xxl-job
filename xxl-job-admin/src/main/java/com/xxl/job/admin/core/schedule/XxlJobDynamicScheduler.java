@@ -1,17 +1,8 @@
 package com.xxl.job.admin.core.schedule;
 
-import com.xxl.job.admin.core.jobbean.RemoteHttpJobBean;
-import com.xxl.job.admin.core.model.XxlJobInfo;
-import com.xxl.job.admin.core.thread.JobFailMonitorHelper;
-import com.xxl.job.admin.core.thread.JobRegistryMonitorHelper;
-import com.xxl.job.admin.dao.XxlJobGroupDao;
-import com.xxl.job.admin.dao.XxlJobInfoDao;
-import com.xxl.job.admin.dao.XxlJobLogDao;
-import com.xxl.job.admin.dao.XxlJobRegistryDao;
-import com.xxl.job.core.biz.AdminBiz;
-import com.xxl.job.core.biz.ExecutorBiz;
-import com.xxl.job.core.rpc.netcom.NetComClientProxy;
-import com.xxl.job.core.rpc.netcom.NetComServerFactory;
+import java.util.Date;
+import java.util.HashSet;
+
 import org.quartz.*;
 import org.quartz.Trigger.TriggerState;
 import org.quartz.impl.triggers.CronTriggerImpl;
@@ -22,9 +13,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.Assert;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.concurrent.ConcurrentHashMap;
+import com.xxl.job.admin.core.jobbean.RemoteHttpJobBean;
+import com.xxl.job.admin.core.model.XxlJobInfo;
+import com.xxl.job.admin.core.thread.JobFailMonitorHelper;
+import com.xxl.job.admin.dao.XxlJobGroupDao;
+import com.xxl.job.admin.dao.XxlJobInfoDao;
+import com.xxl.job.admin.dao.XxlJobLogDao;
+import com.xxl.job.admin.dao.XxlJobRegistryDao;
 
 /**
  * base quartz scheduler util
@@ -52,7 +47,7 @@ public final class XxlJobDynamicScheduler implements ApplicationContextAware {
     public static XxlJobInfoDao xxlJobInfoDao;
     public static XxlJobRegistryDao xxlJobRegistryDao;
     public static XxlJobGroupDao xxlJobGroupDao;
-    public static AdminBiz adminBiz;
+//    public static AdminBiz adminBiz;
 
     // ---------------------- applicationContext ----------------------
     @Override
@@ -61,20 +56,20 @@ public final class XxlJobDynamicScheduler implements ApplicationContextAware {
 		XxlJobDynamicScheduler.xxlJobInfoDao = applicationContext.getBean(XxlJobInfoDao.class);
         XxlJobDynamicScheduler.xxlJobRegistryDao = applicationContext.getBean(XxlJobRegistryDao.class);
         XxlJobDynamicScheduler.xxlJobGroupDao = applicationContext.getBean(XxlJobGroupDao.class);
-        XxlJobDynamicScheduler.adminBiz = applicationContext.getBean(AdminBiz.class);
+//        XxlJobDynamicScheduler.adminBiz = applicationContext.getBean(AdminBiz.class);
 	}
 
     // ---------------------- init + destroy ----------------------
     public void init() throws Exception {
         // admin registry monitor run
-        JobRegistryMonitorHelper.getInstance().start();
+//        JobRegistryMonitorHelper.getInstance().start();
 
         // admin monitor run
         JobFailMonitorHelper.getInstance().start();
 
         // admin-server(spring-mvc)
-        NetComServerFactory.putService(AdminBiz.class, XxlJobDynamicScheduler.adminBiz);
-        NetComServerFactory.setAccessToken(accessToken);
+//        NetComServerFactory.putService(AdminBiz.class, XxlJobDynamicScheduler.adminBiz);
+//        NetComServerFactory.setAccessToken(accessToken);
 
         // valid
         Assert.notNull(scheduler, "quartz scheduler is null");
@@ -83,32 +78,32 @@ public final class XxlJobDynamicScheduler implements ApplicationContextAware {
 
     public void destroy(){
         // admin registry stop
-        JobRegistryMonitorHelper.getInstance().toStop();
+//        JobRegistryMonitorHelper.getInstance().toStop();
 
         // admin monitor stop
         JobFailMonitorHelper.getInstance().toStop();
     }
 
     // ---------------------- executor-client ----------------------
-    private static ConcurrentHashMap<String, ExecutorBiz> executorBizRepository = new ConcurrentHashMap<String, ExecutorBiz>();
-    public static ExecutorBiz getExecutorBiz(String address) throws Exception {
-        // valid
-        if (address==null || address.trim().length()==0) {
-            return null;
-        }
-
-        // load-cache
-        address = address.trim();
-        ExecutorBiz executorBiz = executorBizRepository.get(address);
-        if (executorBiz != null) {
-            return executorBiz;
-        }
-
-        // set-cache
-        executorBiz = (ExecutorBiz) new NetComClientProxy(ExecutorBiz.class, address, accessToken).getObject();
-        executorBizRepository.put(address, executorBiz);
-        return executorBiz;
-    }
+//    private static ConcurrentHashMap<String, ExecutorBiz> executorBizRepository = new ConcurrentHashMap<String, ExecutorBiz>();
+//    public static ExecutorBiz getExecutorBiz(String address) throws Exception {
+//        // valid
+//        if (address==null || address.trim().length()==0) {
+//            return null;
+//        }
+//
+//        // load-cache
+//        address = address.trim();
+//        ExecutorBiz executorBiz = executorBizRepository.get(address);
+//        if (executorBiz != null) {
+//            return executorBiz;
+//        }
+//
+//        // set-cache
+//        executorBiz = (ExecutorBiz) new NetComClientProxy(ExecutorBiz.class, address, accessToken).getObject();
+//        executorBizRepository.put(address, executorBiz);
+//        return executorBiz;
+//    }
 
     // ---------------------- schedule util ----------------------
 

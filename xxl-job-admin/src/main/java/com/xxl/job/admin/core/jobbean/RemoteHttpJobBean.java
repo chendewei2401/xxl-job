@@ -15,7 +15,6 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
  */
 //@DisallowConcurrentExecution
 public class RemoteHttpJobBean extends QuartzJobBean {
-	private static Logger logger = LoggerFactory.getLogger(RemoteHttpJobBean.class);
 
 	@Override
 	protected void executeInternal(JobExecutionContext context)

@@ -1,23 +1,24 @@
 package com.xxl.job.admin.controller;
 
-import com.xxl.job.admin.core.enums.ExecutorFailStrategyEnum;
-import com.xxl.job.admin.core.model.XxlJobGroup;
-import com.xxl.job.admin.core.model.XxlJobInfo;
-import com.xxl.job.admin.core.route.ExecutorRouteStrategyEnum;
-import com.xxl.job.admin.dao.XxlJobGroupDao;
-import com.xxl.job.admin.service.XxlJobService;
-import com.xxl.job.core.biz.model.ReturnT;
-import com.xxl.job.core.enums.ExecutorBlockStrategyEnum;
-import com.xxl.job.core.glue.GlueTypeEnum;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
+import com.xxl.job.admin.core.enums.ExecutorFailStrategyEnum;
+import com.xxl.job.admin.core.model.XxlJobGroup;
+import com.xxl.job.admin.core.model.XxlJobInfo;
+import com.xxl.job.admin.core.route.ExecutorRouteStrategyEnum;
+import com.xxl.job.admin.dao.XxlJobGroupDao;
+import com.xxl.job.admin.service.XxlJobService;
+import com.xxl.job.admin.core.model.ReturnT;
+//import com.xxl.job.core.enums.ExecutorBlockStrategyEnum;
 
 /**
  * @author chendewei@cmhi.chinamobile.com
@@ -41,8 +42,8 @@ public class JobInfoController {
 
 		// 枚举-字典
 		model.addAttribute("ExecutorRouteStrategyEnum", ExecutorRouteStrategyEnum.values());	// 路由策略-列表
-		model.addAttribute("GlueTypeEnum", GlueTypeEnum.values());								// Glue类型-字典
-		model.addAttribute("ExecutorBlockStrategyEnum", ExecutorBlockStrategyEnum.values());	// 阻塞处理策略-字典
+//		model.addAttribute("GlueTypeEnum", GlueTypeEnum.values());								// Glue类型-字典
+//		model.addAttribute("ExecutorBlockStrategyEnum", ExecutorBlockStrategyEnum.values());	// 阻塞处理策略-字典
 		model.addAttribute("ExecutorFailStrategyEnum", ExecutorFailStrategyEnum.values());		// 失败处理策略-字典
 
 		// 任务组

@@ -1,7 +1,7 @@
 package com.xxl.job.admin.controller.resolver;
 
-import com.xxl.job.core.biz.model.ReturnT;
-import com.xxl.job.core.util.JacksonUtil;
+import com.xxl.job.admin.core.model.ReturnT;
+//import com.xxl.job.core.util.JacksonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,7 +29,7 @@ public class WebExceptionResolver implements HandlerExceptionResolver {
 		ResponseBody responseBody = method.getMethodAnnotation(ResponseBody.class);
 		if (responseBody != null) {
 			response.setContentType("application/json;charset=UTF-8");
-			mv.addObject("result", JacksonUtil.writeValueAsString(new ReturnT<String>(500, ex.toString().replaceAll("\n", "<br/>"))));
+			mv.addObject("result", "500");
 			mv.setViewName("/common/common.result");
 		} else {
 			mv.addObject("exceptionMsg", ex.toString().replaceAll("\n", "<br/>"));	

@@ -7,7 +7,7 @@ import com.xxl.job.admin.core.route.strategy.*;
  */
 public enum ExecutorRouteStrategyEnum {
 
-    FIRST("第一个", new ExecutorRouteFirst());
+    FIRST("第一个(地址列表)", new ExecutorRouteFirst());
 
     ExecutorRouteStrategyEnum(String title, ExecutorRouter router) {
         this.title = title;

@@ -10,9 +10,9 @@ import com.xxl.job.admin.dao.XxlJobInfoDao;
 import com.xxl.job.admin.dao.XxlJobLogDao;
 import com.xxl.job.admin.dao.XxlJobLogGlueDao;
 import com.xxl.job.admin.service.XxlJobService;
-import com.xxl.job.core.biz.model.ReturnT;
-import com.xxl.job.core.enums.ExecutorBlockStrategyEnum;
-import com.xxl.job.core.glue.GlueTypeEnum;
+import com.xxl.job.admin.core.model.ReturnT;
+//import com.xxl.job.core.enums.ExecutorBlockStrategyEnum;
+//import com.xxl.job.core.glue.GlueTypeEnum;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -85,23 +85,11 @@ public class XxlJobServiceImpl implements XxlJobService {
 		if (ExecutorRouteStrategyEnum.match(jobInfo.getExecutorRouteStrategy(), null) == null) {
 			return new ReturnT<String>(ReturnT.FAIL_CODE, "路由策略非法");
 		}
-		if (ExecutorBlockStrategyEnum.match(jobInfo.getExecutorBlockStrategy(), null) == null) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, "阻塞处理策略非法");
-		}
+
 		if (ExecutorFailStrategyEnum.match(jobInfo.getExecutorFailStrategy(), null) == null) {
 			return new ReturnT<String>(ReturnT.FAIL_CODE, "失败处理策略非法");
 		}
-		if (GlueTypeEnum.match(jobInfo.getGlueType()) == null) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, "运行模式非法非法");
-		}
-		if (GlueTypeEnum.BEAN==GlueTypeEnum.match(jobInfo.getGlueType()) && StringUtils.isBlank(jobInfo.getExecutorHandler())) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, "请输入“JobHandler”");
-		}
 
-		// fix "\r" in shell
-		if (GlueTypeEnum.GLUE_SHELL==GlueTypeEnum.match(jobInfo.getGlueType()) && jobInfo.getGlueSource()!=null) {
-			jobInfo.setGlueSource(jobInfo.getGlueSource().replaceAll("\r", ""));
-		}
 
 		// childJobKey valid
 		if (StringUtils.isNotBlank(jobInfo.getChildJobKey())) {
@@ -159,9 +147,7 @@ public class XxlJobServiceImpl implements XxlJobService {
 		if (ExecutorRouteStrategyEnum.match(jobInfo.getExecutorRouteStrategy(), null) == null) {
 			return new ReturnT<String>(ReturnT.FAIL_CODE, "路由策略非法");
 		}
-		if (ExecutorBlockStrategyEnum.match(jobInfo.getExecutorBlockStrategy(), null) == null) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, "阻塞处理策略非法");
-		}
+
 		if (ExecutorFailStrategyEnum.match(jobInfo.getExecutorFailStrategy(), null) == null) {
 			return new ReturnT<String>(ReturnT.FAIL_CODE, "失败处理策略非法");
 		}
