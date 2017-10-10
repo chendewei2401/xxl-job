@@ -14,8 +14,12 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * job group controller
- * @author xuxueli 2016-10-02 20:52:56
+ * @author chendewei@cmhi.chinamobile.com
+ * @version V1.0
+ * @date 2016年11月13日 下午1:34:02
+ * @since JDK1.8
+ * <p>
+ * 功能说明: 执行器控制入口，表为XXL_JOB_QRTZ_TRIGGER_GROUP
  */
 @Controller
 @RequestMapping("/jobgroup")

@@ -13,23 +13,23 @@ public class CookieUtil {
 	private static final int COOKIE_MAX_AGE = 60 * 60 * 2;
 	// 保存路径,根路径
 	private static final String COOKIE_PATH = "/";
-	
+
 	/**
 	 * 保存
 	 * @param response
 	 * @param key
 	 * @param value
-	 * @param ifRemember 
+	 * @param ifRemember
 	 */
 	public static void set(HttpServletResponse response, String key, String value, boolean ifRemember) {
-		
+
 		int age = COOKIE_MAX_AGE;
 		if (ifRemember) {
 			age = COOKIE_MAX_AGE;
 		} else {
 			age = -1;
 		}
-		
+
 		Cookie cookie = new Cookie(key, value);
 		cookie.setMaxAge(age);				// Cookie过期时间,单位/秒
 		cookie.setPath(COOKIE_PATH);		// Cookie适用的路径
@@ -43,14 +43,14 @@ public class CookieUtil {
 	 * @param value
 	 * @param maxAge
 	 */
-	private static void set(HttpServletResponse response, 
+	private static void set(HttpServletResponse response,
 			String key, String value, int maxAge, String path) {
 		Cookie cookie = new Cookie(key, value);
 		cookie.setMaxAge(maxAge);	// Cookie过期时间,单位/秒
 		cookie.setPath(path);		// Cookie适用的路径
 		response.addCookie(cookie);
 	}
-	
+
 	/**
 	 * 查询value
 	 * @param request
@@ -81,7 +81,7 @@ public class CookieUtil {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 删除Cookie
 	 * @param request

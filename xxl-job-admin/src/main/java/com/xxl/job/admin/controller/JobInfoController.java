@@ -20,8 +20,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * index controller
- * @author xuxueli 2015-12-19 16:13:16
+ * @author chendewei@cmhi.chinamobile.com
+ * @version V1.0
+ * @date 2016年11月13日 下午1:34:02
+ * @since JDK1.8
+ * <p>
+ * 功能说明: 任务管理控制器入口，表为XXL_JOB_QRTZ_TRIGGER_INFO
  */
 @Controller
 @RequestMapping("/jobinfo")

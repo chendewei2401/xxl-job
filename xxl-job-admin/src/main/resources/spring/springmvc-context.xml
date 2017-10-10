@@ -35,10 +35,6 @@
 			<mvc:mapping path="/**"/>
 			<bean class="com.xxl.job.admin.controller.interceptor.PermissionInterceptor"/>
 		</mvc:interceptor>
-		<mvc:interceptor>
-			<mvc:mapping path="/**"/>
-			<bean class="com.xxl.job.admin.controller.interceptor.CookieInterceptor"/>
-		</mvc:interceptor>
 	</mvc:interceptors>
 	<bean id="exceptionResolver" class="com.xxl.job.admin.controller.resolver.WebExceptionResolver" />
 	
