@@ -12,7 +12,7 @@ public enum GlueTypeEnum {
     GLUE_NODEJS("GLUE模式(Nodejs)");
 
     private String desc;
-    private GlueTypeEnum(String desc) {
+    GlueTypeEnum(String desc) {
         this.desc = desc;
     }
     public String getDesc() {

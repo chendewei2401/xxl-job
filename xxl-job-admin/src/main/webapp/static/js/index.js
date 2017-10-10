@@ -15,7 +15,7 @@ $(function () {
         dataType : "json",
         success : function(data){
             if (data.code == 200) {
-                lineChartInit(data)
+                lineChartInit(data);
                 pieChartInit(data);
             } else {
                 layer.open({

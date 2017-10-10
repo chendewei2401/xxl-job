@@ -235,7 +235,7 @@ $(function() {
 		var _id = $(this).attr('_id');
 		
 		window.open(base_url + '/joblog/logDetailPage?id=' + _id);
-		return;
+
 	});
 
 	/**

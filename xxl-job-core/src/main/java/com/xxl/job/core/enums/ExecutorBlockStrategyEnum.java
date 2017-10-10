@@ -11,7 +11,7 @@ public enum ExecutorBlockStrategyEnum {
     COVER_EARLY("覆盖之前调度");
 
     private final String title;
-    private ExecutorBlockStrategyEnum (String title) {
+    ExecutorBlockStrategyEnum(String title) {
         this.title = title;
     }
     public String getTitle() {
