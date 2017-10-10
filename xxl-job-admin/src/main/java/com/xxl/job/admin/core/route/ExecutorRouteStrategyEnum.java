@@ -7,16 +7,7 @@ import com.xxl.job.admin.core.route.strategy.*;
  */
 public enum ExecutorRouteStrategyEnum {
 
-    FIRST("第一个", new ExecutorRouteFirst()),
-    LAST("最后一个", new ExecutorRouteLast()),
-    ROUND("轮询", new ExecutorRouteRound()),
-    RANDOM("随机", new ExecutorRouteRandom()),
-    CONSISTENT_HASH("一致性HASH", new ExecutorRouteConsistentHash()),
-    LEAST_FREQUENTLY_USED("最不经常使用", new ExecutorRouteLFU()),
-    LEAST_RECENTLY_USED("最近最久未使用", new ExecutorRouteLRU()),
-    FAILOVER("故障转移", new ExecutorRouteFailover()),
-    BUSYOVER("忙碌转移", new ExecutorRouteBusyover()),
-    SHARDING_BROADCAST("分片广播", null);
+    FIRST("第一个", new ExecutorRouteFirst());
 
     ExecutorRouteStrategyEnum(String title, ExecutorRouter router) {
         this.title = title;
