@@ -78,8 +78,6 @@
 	    </section>
 	</div>
 	
-	<!-- footer -->
-	<@netCommon.commonFooter />
 </div>
 
 <!-- job新增.模态框 -->
