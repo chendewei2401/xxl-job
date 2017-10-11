@@ -8,7 +8,6 @@ import com.xxl.job.admin.core.schedule.XxlJobDynamicScheduler;
 import com.xxl.job.admin.dao.XxlJobGroupDao;
 import com.xxl.job.admin.dao.XxlJobInfoDao;
 import com.xxl.job.admin.dao.XxlJobLogDao;
-import com.xxl.job.admin.dao.XxlJobLogGlueDao;
 import com.xxl.job.admin.service.XxlJobService;
 import com.xxl.job.admin.core.model.ReturnT;
 //import com.xxl.job.core.enums.ExecutorBlockStrategyEnum;
@@ -41,15 +40,13 @@ public class XxlJobServiceImpl implements XxlJobService {
 	private XxlJobInfoDao xxlJobInfoDao;
 	@Resource
 	public XxlJobLogDao xxlJobLogDao;
-	@Resource
-	private XxlJobLogGlueDao xxlJobLogGlueDao;
-	
+
 	@Override
-	public Map<String, Object> pageList(int start, int length, int jobGroup, String executorHandler, String filterTime) {
+	public Map<String, Object> pageList(int start, int length, int jobGroup, String filterTime) {
 
 		// page list
-		List<XxlJobInfo> list = xxlJobInfoDao.pageList(start, length, jobGroup, executorHandler);
-		int list_count = xxlJobInfoDao.pageListCount(start, length, jobGroup, executorHandler);
+		List<XxlJobInfo> list = xxlJobInfoDao.pageList(start, length, jobGroup);
+		int list_count = xxlJobInfoDao.pageListCount(start, length, jobGroup);
 		
 		// fill job info
 		if (list!=null && list.size()>0) {
@@ -179,7 +176,6 @@ public class XxlJobServiceImpl implements XxlJobService {
 		exists_jobInfo.setAuthor(jobInfo.getAuthor());
 		exists_jobInfo.setAlarmEmail(jobInfo.getAlarmEmail());
 		exists_jobInfo.setExecutorRouteStrategy(jobInfo.getExecutorRouteStrategy());
-		exists_jobInfo.setExecutorHandler(jobInfo.getExecutorHandler());
 		exists_jobInfo.setExecutorParam(jobInfo.getExecutorParam());
 		exists_jobInfo.setExecutorBlockStrategy(jobInfo.getExecutorBlockStrategy());
 		exists_jobInfo.setExecutorFailStrategy(jobInfo.getExecutorFailStrategy());
@@ -209,7 +205,6 @@ public class XxlJobServiceImpl implements XxlJobService {
 			XxlJobDynamicScheduler.removeJob(name, group);
 			xxlJobInfoDao.delete(id);
 			xxlJobLogDao.delete(id);
-			xxlJobLogGlueDao.deleteByJobId(id);
 			return ReturnT.SUCCESS;
 		} catch (SchedulerException e) {
 			logger.error(e.getMessage(), e);

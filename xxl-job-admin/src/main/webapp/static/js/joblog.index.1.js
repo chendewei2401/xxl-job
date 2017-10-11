@@ -229,11 +229,11 @@ $(function() {
 	$('#searchBtn').on('click', function(){
 		logTable.fnDraw();
 	});
-	
+
 	// 查看执行器详细执行日志
 	$('#joblog_list').on('click', '.logDetail', function(){
 		var _id = $(this).attr('_id');
-		
+
 		window.open(base_url + '/joblog/logDetailPage?id=' + _id);
 
 	});

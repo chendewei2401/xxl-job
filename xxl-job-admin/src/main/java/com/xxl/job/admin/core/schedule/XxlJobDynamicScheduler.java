@@ -1,10 +1,23 @@
 package com.xxl.job.admin.core.schedule;
 
-import java.util.Date;
-import java.util.HashSet;
-
-import org.quartz.*;
+import com.xxl.job.admin.core.jobbean.RemoteHttpJobBean;
+import com.xxl.job.admin.core.model.XxlJobInfo;
+import com.xxl.job.admin.core.thread.JobFailMonitorHelper;
+import com.xxl.job.admin.dao.XxlJobGroupDao;
+import com.xxl.job.admin.dao.XxlJobInfoDao;
+import com.xxl.job.admin.dao.XxlJobLogDao;
+import org.quartz.CronScheduleBuilder;
+import org.quartz.CronTrigger;
+import org.quartz.Job;
+import org.quartz.JobBuilder;
+import org.quartz.JobDetail;
+import org.quartz.JobKey;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.Trigger;
 import org.quartz.Trigger.TriggerState;
+import org.quartz.TriggerBuilder;
+import org.quartz.TriggerKey;
 import org.quartz.impl.triggers.CronTriggerImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,13 +26,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.Assert;
 
-import com.xxl.job.admin.core.jobbean.RemoteHttpJobBean;
-import com.xxl.job.admin.core.model.XxlJobInfo;
-import com.xxl.job.admin.core.thread.JobFailMonitorHelper;
-import com.xxl.job.admin.dao.XxlJobGroupDao;
-import com.xxl.job.admin.dao.XxlJobInfoDao;
-import com.xxl.job.admin.dao.XxlJobLogDao;
-import com.xxl.job.admin.dao.XxlJobRegistryDao;
+import java.util.Date;
+import java.util.HashSet;
 
 /**
  * base quartz scheduler util
@@ -45,7 +53,6 @@ public final class XxlJobDynamicScheduler implements ApplicationContextAware {
     // dao
     public static XxlJobLogDao xxlJobLogDao;
     public static XxlJobInfoDao xxlJobInfoDao;
-    public static XxlJobRegistryDao xxlJobRegistryDao;
     public static XxlJobGroupDao xxlJobGroupDao;
 //    public static AdminBiz adminBiz;
 
@@ -54,9 +61,7 @@ public final class XxlJobDynamicScheduler implements ApplicationContextAware {
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		XxlJobDynamicScheduler.xxlJobLogDao = applicationContext.getBean(XxlJobLogDao.class);
 		XxlJobDynamicScheduler.xxlJobInfoDao = applicationContext.getBean(XxlJobInfoDao.class);
-        XxlJobDynamicScheduler.xxlJobRegistryDao = applicationContext.getBean(XxlJobRegistryDao.class);
         XxlJobDynamicScheduler.xxlJobGroupDao = applicationContext.getBean(XxlJobGroupDao.class);
-//        XxlJobDynamicScheduler.adminBiz = applicationContext.getBean(AdminBiz.class);
 	}
 
     // ---------------------- init + destroy ----------------------
@@ -83,29 +88,6 @@ public final class XxlJobDynamicScheduler implements ApplicationContextAware {
         // admin monitor stop
         JobFailMonitorHelper.getInstance().toStop();
     }
-
-    // ---------------------- executor-client ----------------------
-//    private static ConcurrentHashMap<String, ExecutorBiz> executorBizRepository = new ConcurrentHashMap<String, ExecutorBiz>();
-//    public static ExecutorBiz getExecutorBiz(String address) throws Exception {
-//        // valid
-//        if (address==null || address.trim().length()==0) {
-//            return null;
-//        }
-//
-//        // load-cache
-//        address = address.trim();
-//        ExecutorBiz executorBiz = executorBizRepository.get(address);
-//        if (executorBiz != null) {
-//            return executorBiz;
-//        }
-//
-//        // set-cache
-//        executorBiz = (ExecutorBiz) new NetComClientProxy(ExecutorBiz.class, address, accessToken).getObject();
-//        executorBizRepository.put(address, executorBiz);
-//        return executorBiz;
-//    }
-
-    // ---------------------- schedule util ----------------------
 
     /**
      * fill job info

@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface XxlJobService {
 	
-	Map<String, Object> pageList(int start, int length, int jobGroup, String executorHandler, String filterTime);
+	Map<String, Object> pageList(int start, int length, int jobGroup, String filterTime);
 	
 	ReturnT<String> add(XxlJobInfo jobInfo);
 	

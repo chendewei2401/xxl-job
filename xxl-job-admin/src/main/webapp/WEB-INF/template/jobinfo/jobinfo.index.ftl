@@ -20,12 +20,6 @@
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>任务管理<small>任务调度中心</small></h1>
-			<!--
-			<ol class="breadcrumb">
-				<li><a><i class="fa fa-dashboard"></i>调度管理</a></li>
-				<li class="active">调度中心</li>
-			</ol>
-			-->
 		</section>
 		
 		<!-- Main content -->
@@ -42,12 +36,6 @@
 	                  	</select>
 	              	</div>
 	            </div>
-                <div class="col-xs-4">
-                    <div class="input-group">
-                        <span class="input-group-addon">JobHandler</span>
-                        <input type="text" class="form-control" id="executorHandler" autocomplete="on" >
-                    </div>
-                </div>
 	            <div class="col-xs-2">
 	            	<button class="btn btn-block btn-info" id="searchBtn">搜索</button>
 	            </div>
@@ -70,14 +58,12 @@
 					                	<th name="jobGroup" >jobGroup</th>
                                         <th name="childJobKey" >JobKey</th>
 					                  	<th name="jobDesc" >描述</th>
-                                        <th name="glueType" >运行模式</th>
 					                  	<th name="executorParam" >任务参数</th>
                                         <th name="jobCron" >Cron</th>
 					                  	<th name="addTime" >新增时间</th>
 					                  	<th name="updateTime" >更新时间</th>
 					                  	<th name="author" >负责人</th>
 					                  	<th name="alarmEmail" >报警邮件</th>
-					                  	<th name="glueType" >运行模式</th>
 					                  	<th name="jobStatus" >状态</th>
 					                  	<th>操作</th>
 					                </tr>
@@ -129,18 +115,7 @@
                         <label for="lastname" class="col-sm-2 control-label">Cron<font color="red">*</font></label>
                         <div class="col-sm-4"><input type="text" class="form-control" name="jobCron" placeholder="请输入“Cron”" maxlength="20" ></div>
                     </div>
-                    <div class="form-group">
-                        <label for="firstname" class="col-sm-2 control-label">运行模式<font color="red">*</font></label>
-                        <div class="col-sm-4">
-                            <select class="form-control glueType" name="glueType" >
-								<#list GlueTypeEnum as item>
-									<option value="${item}" >${item.desc}</option>
-								</#list>
-                            </select>
-                        </div>
-                        <label for="firstname" class="col-sm-2 control-label">JobHandler<font color="black">*</font></label>
-                        <div class="col-sm-4"><input type="text" class="form-control" name="executorHandler" placeholder="请输入“JobHandler”" maxlength="100" ></div>
-                    </div>
+
                     <div class="form-group">
                         <label for="firstname" class="col-sm-2 control-label">执行参数<font color="black">*</font></label>
                         <div class="col-sm-4"><input type="text" class="form-control" name="executorParam" placeholder="请输入“执行参数”" maxlength="100" ></div>
@@ -148,14 +123,6 @@
                         <div class="col-sm-4"><input type="text" class="form-control" name="childJobKey" placeholder="请输入子任务的任务Key,如存在多个逗号分隔" maxlength="100" ></div>
                     </div>
                     <div class="form-group">
-                        <label for="firstname" class="col-sm-2 control-label">阻塞处理策略<font color="red">*</font></label>
-                        <div class="col-sm-4">
-                            <select class="form-control" name="executorBlockStrategy" >
-								<#list ExecutorBlockStrategyEnum as item>
-									<option value="${item}" >${item.title}</option>
-								</#list>
-                            </select>
-						</div>
                         <label for="lastname" class="col-sm-2 control-label">失败处理策略<font color="red">*</font></label>
                         <div class="col-sm-4">
                             <select class="form-control" name="executorFailStrategy" >
@@ -287,32 +254,13 @@ process.exit(0)
                         <div class="col-sm-4"><input type="text" class="form-control" name="jobCron" placeholder="请输入“Cron”" maxlength="20" ></div>
                     </div>
                     <div class="form-group">
-                        <label for="firstname" class="col-sm-2 control-label">运行模式<font color="red">*</font></label>
-                        <div class="col-sm-4">
-                            <select class="form-control glueType" name="glueType" disabled >
-							<#list GlueTypeEnum as item>
-                                <option value="${item}" >${item.desc}</option>
-							</#list>
-                            </select>
-                        </div>
-                        <label for="firstname" class="col-sm-2 control-label">JobHandler<font color="black">*</font></label>
-                        <div class="col-sm-4"><input type="text" class="form-control" name="executorHandler" placeholder="请输入“JobHandler”" maxlength="100" ></div>
-                    </div>
-                    <div class="form-group">
                         <label for="firstname" class="col-sm-2 control-label">执行参数<font color="black">*</font></label>
                         <div class="col-sm-4"><input type="text" class="form-control" name="executorParam" placeholder="请输入“执行参数”" maxlength="100" ></div>
                         <label for="lastname" class="col-sm-2 control-label">子任务Key<font color="black">*</font></label>
                         <div class="col-sm-4"><input type="text" class="form-control" name="childJobKey" placeholder="请输入子任务的任务Key,如存在多个逗号分隔" maxlength="100" ></div>
                     </div>
                     <div class="form-group">
-                        <label for="firstname" class="col-sm-2 control-label">阻塞处理策略<font color="red">*</font></label>
-                        <div class="col-sm-4">
-                            <select class="form-control" name="executorBlockStrategy" >
-							<#list ExecutorBlockStrategyEnum as item>
-                                <option value="${item}" >${item.title}</option>
-							</#list>
-                            </select>
-                        </div>
+
                         <label for="lastname" class="col-sm-2 control-label">失败处理策略<font color="red">*</font></label>
                         <div class="col-sm-4">
                             <select class="form-control" name="executorFailStrategy" >

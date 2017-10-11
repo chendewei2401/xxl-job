@@ -21,16 +21,10 @@ public class XxlJobInfo {
 	private String alarmEmail;	// 报警邮件
 
 	private String executorRouteStrategy;	// 执行器路由策略
-	private String executorHandler;		    // 执行器，任务Handler名称
 	private String executorParam;		    // 执行器，任务参数
 	private String executorBlockStrategy;	// 阻塞处理策略
 	private String executorFailStrategy;	// 失败处理策略
 	
-	private String glueType;		// GLUE类型	#com.xxl.job.core.glue.GlueTypeEnum
-	private String glueSource;		// GLUE源代码
-	private String glueRemark;		// GLUE备注
-	private Date glueUpdatetime;	// GLUE更新时间
-
 	private String childJobKey;		// 子任务Key
 	
 	// copy from quartz
@@ -108,14 +102,6 @@ public class XxlJobInfo {
         this.executorRouteStrategy = executorRouteStrategy;
     }
 
-    public String getExecutorHandler() {
-		return executorHandler;
-	}
-
-	public void setExecutorHandler(String executorHandler) {
-		this.executorHandler = executorHandler;
-	}
-
 	public String getExecutorParam() {
 		return executorParam;
 	}
@@ -138,38 +124,6 @@ public class XxlJobInfo {
 
 	public void setExecutorFailStrategy(String executorFailStrategy) {
 		this.executorFailStrategy = executorFailStrategy;
-	}
-
-	public String getGlueType() {
-		return glueType;
-	}
-
-	public void setGlueType(String glueType) {
-		this.glueType = glueType;
-	}
-
-	public String getGlueSource() {
-		return glueSource;
-	}
-
-	public void setGlueSource(String glueSource) {
-		this.glueSource = glueSource;
-	}
-
-	public String getGlueRemark() {
-		return glueRemark;
-	}
-
-	public void setGlueRemark(String glueRemark) {
-		this.glueRemark = glueRemark;
-	}
-
-	public Date getGlueUpdatetime() {
-		return glueUpdatetime;
-	}
-
-	public void setGlueUpdatetime(Date glueUpdatetime) {
-		this.glueUpdatetime = glueUpdatetime;
 	}
 
 	public String getChildJobKey() {

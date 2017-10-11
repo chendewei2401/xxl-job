@@ -50,8 +50,6 @@ public class XxlJobTrigger {
 
         // 2、prepare trigger-info
         //jobLog.setExecutorAddress(executorAddress);
-        jobLog.setGlueType(jobInfo.getGlueType());
-        jobLog.setExecutorHandler(jobInfo.getExecutorHandler());
         jobLog.setExecutorParam(jobInfo.getExecutorParam());
         jobLog.setTriggerTime(new Date());
 

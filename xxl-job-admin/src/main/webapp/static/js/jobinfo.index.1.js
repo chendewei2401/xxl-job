@@ -44,25 +44,6 @@ $(function() {
 						}
 					},
 	                { "data": 'jobDesc', "visible" : true,"width":'20%'},
-					{
-						"data": 'glueType',
-						"width":'20%',
-						"visible" : true,
-						"render": function ( data, type, row ) {
-							if ('GLUE_GROOVY'==row.glueType) {
-								return "GLUE模式(Java)";
-							} else if ('GLUE_SHELL'==row.glueType) {
-								return "GLUE模式(Shell)";
-							} else if ('GLUE_PYTHON'==row.glueType) {
-								return "GLUE模式(Python)";
-							}else if  ('GLUE_NODEJS'==row.glueType){
-								return "GLUE模式(Nodejs)";
-							} else if ('BEAN'==row.glueType) {
-								return "BEAN模式：" + row.executorHandler;
-							}
-							return row.executorHandler;
-						}
-					},
 	                { "data": 'executorParam', "visible" : false},
 					{ "data": 'jobCron', "visible" : true,"width":'10%'},
 	                { 
@@ -81,8 +62,7 @@ $(function() {
 	                },
 	                { "data": 'author', "visible" : true, "width":'10%'},
 	                { "data": 'alarmEmail', "visible" : false},
-	                { "data": 'glueType', "visible" : false},
-	                { 
+	                {
 	                	"data": 'jobStatus',
 						"width":'10%',
 	                	"visible" : true,
@@ -114,10 +94,6 @@ $(function() {
 	                			
 	                			// log url
 	                			var codeBtn = "";
-                                if ('BEAN' != row.glueType) {
-									var codeUrl = base_url +'/jobcode?jobId='+ row.id;
-									codeBtn = '<button class="btn btn-warning btn-xs" type="button" onclick="javascript:window.open(\'' + codeUrl + '\')" >GLUE</button>  '
-								}
 
 								// html
                                 tableData['key'+row.id] = row;
@@ -321,32 +297,6 @@ $(function() {
 	});
 
 
-    // 运行模式
-    $(".glueType").change(function(){
-		// executorHandler
-        var $executorHandler = $(this).parents("form").find("input[name='executorHandler']");
-        var glueType = $(this).val();
-        if ('BEAN' != glueType) {
-            $executorHandler.val("");
-            $executorHandler.attr("readonly","readonly");
-        } else {
-            $executorHandler.removeAttr("readonly");
-        }
-    });
-
-	$("#addModal .glueType").change(function(){
-		// glueSource
-		var glueType = $(this).val();
-		if ('GLUE_GROOVY'==glueType){
-			$("#addModal .form textarea[name='glueSource']").val( $("#addModal .form .glueSource_java").val() );
-		} else if ('GLUE_SHELL'==glueType){
-			$("#addModal .form textarea[name='glueSource']").val( $("#addModal .form .glueSource_shell").val() );
-		} else if ('GLUE_PYTHON'==glueType){
-			$("#addModal .form textarea[name='glueSource']").val( $("#addModal .form .glueSource_python").val() );
-		} else if ('GLUE_NODEJS'==glueType){
-			$("#addModal .form textarea[name='glueSource']").val( $("#addModal .form .glueSource_nodejs").val() );			
-		}
-	});
 
 	// 更新
 	$("#job_list").on('click', '.update',function() {
@@ -375,9 +325,7 @@ $(function() {
         $("#updateModal .form input[name='childJobKey']").val( row.childJobKey );
 		$('#updateModal .form select[name=executorBlockStrategy] option[value='+ row.executorBlockStrategy +']').prop('selected', true);
 		$('#updateModal .form select[name=executorFailStrategy] option[value='+ row.executorFailStrategy +']').prop('selected', true);
-		$('#updateModal .form select[name=glueType] option[value='+ row.glueType +']').prop('selected', true);
 
-        $("#updateModal .form select[name=glueType]").change();
 
 		// show
 		$('#updateModal').modal({backdrop: false, keyboard: false}).modal('show');

@@ -14,12 +14,8 @@ public class XxlJobLog {
 	private int jobGroup;
 	private int jobId;
 
-	// glueType
-	private String glueType;
-
 	// execute info
 	private String executorAddress;
-	private String executorHandler;
 	private String executorParam;
 	
 	// trigger info
@@ -56,13 +52,6 @@ public class XxlJobLog {
 		this.jobId = jobId;
 	}
 
-	public String getGlueType() {
-		return glueType;
-	}
-
-	public void setGlueType(String glueType) {
-		this.glueType = glueType;
-	}
 
 	public String getExecutorAddress() {
 		return executorAddress;
@@ -70,14 +59,6 @@ public class XxlJobLog {
 
 	public void setExecutorAddress(String executorAddress) {
 		this.executorAddress = executorAddress;
-	}
-
-	public String getExecutorHandler() {
-		return executorHandler;
-	}
-
-	public void setExecutorHandler(String executorHandler) {
-		this.executorHandler = executorHandler;
 	}
 
 	public String getExecutorParam() {

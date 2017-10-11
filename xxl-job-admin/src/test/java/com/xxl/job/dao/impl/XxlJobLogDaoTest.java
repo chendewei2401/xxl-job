@@ -32,12 +32,10 @@ public class XxlJobLogDaoTest {
         int ret1 = xxlJobLogDao.save(log);
         XxlJobLog dto = xxlJobLogDao.load(log.getId());
 
-        log.setGlueType("1");
         log.setTriggerTime(new Date());
         log.setTriggerCode(1);
         log.setTriggerMsg("1");
         log.setExecutorAddress("1");
-        log.setExecutorHandler("1");
         log.setExecutorParam("1");
         ret1 = xxlJobLogDao.updateTriggerInfo(log);
         dto = xxlJobLogDao.load(log.getId());
@@ -51,8 +49,6 @@ public class XxlJobLogDaoTest {
 
 
         List<Map<String, Object>> list2 = xxlJobLogDao.triggerCountByDay(DateUtils.addDays(new Date(), 30), new Date(), 200);
-
-        int ret4 = xxlJobLogDao.clearLog(1, 1, new Date(), 100);
 
         int ret2 = xxlJobLogDao.delete(log.getJobId());
 

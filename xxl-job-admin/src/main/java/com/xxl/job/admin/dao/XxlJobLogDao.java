@@ -44,9 +44,4 @@ public interface XxlJobLogDao {
                                                 @Param("to") Date to,
                                                 @Param("handleCode") int handleCode);
 
-	int clearLog(@Param("jobGroup") int jobGroup,
-                 @Param("jobId") int jobId,
-                 @Param("clearBeforeTime") Date clearBeforeTime,
-                 @Param("clearBeforeNum") int clearBeforeNum);
-
 }

@@ -54,15 +54,13 @@ public class JobGroupController {
 		if (xxlJobGroup.getTitle()==null || StringUtils.isBlank(xxlJobGroup.getTitle())) {
 			return new ReturnT<String>(500, "请输入名称");
 		}
-		if (xxlJobGroup.getAddressType()!=0) {
-			if (StringUtils.isBlank(xxlJobGroup.getAddressList())) {
-				return new ReturnT<String>(500, "手动录入注册方式，机器地址不可为空");
-			}
-			String[] addresss = xxlJobGroup.getAddressList().split(",");
-			for (String item: addresss) {
-				if (StringUtils.isBlank(item)) {
-					return new ReturnT<String>(500, "机器地址非法");
-				}
+		if (StringUtils.isBlank(xxlJobGroup.getAddressList())) {
+			return new ReturnT<String>(500, "机器地址不可为空");
+		}
+		String[] addresss = xxlJobGroup.getAddressList().split(",");
+		for (String item: addresss) {
+			if (StringUtils.isBlank(item)) {
+				return new ReturnT<String>(500, "机器地址非法");
 			}
 		}
 
@@ -83,15 +81,13 @@ public class JobGroupController {
 		if (xxlJobGroup.getTitle()==null || StringUtils.isBlank(xxlJobGroup.getTitle())) {
 			return new ReturnT<String>(500, "请输入名称");
 		}
-		if (xxlJobGroup.getAddressType()!=0) {
-			if (StringUtils.isBlank(xxlJobGroup.getAddressList())) {
-				return new ReturnT<String>(500, "手动录入注册方式，机器地址不可为空");
-			}
-			String[] addresss = xxlJobGroup.getAddressList().split(",");
-			for (String item: addresss) {
-				if (StringUtils.isBlank(item)) {
-					return new ReturnT<String>(500, "机器地址非法");
-				}
+		if (StringUtils.isBlank(xxlJobGroup.getAddressList())) {
+			return new ReturnT<String>(500, "机器地址不可为空");
+		}
+		String[] addresss = xxlJobGroup.getAddressList().split(",");
+		for (String item: addresss) {
+			if (StringUtils.isBlank(item)) {
+				return new ReturnT<String>(500, "机器地址非法");
 			}
 		}
 
@@ -104,7 +100,7 @@ public class JobGroupController {
 	public ReturnT<String> remove(int id){
 
 		// valid
-		int count = xxlJobInfoDao.pageListCount(0, 10, id, null);
+		int count = xxlJobInfoDao.pageListCount(0, 10, id);
 		if (count > 0) {
 			return new ReturnT<String>(500, "该分组使用中, 不可删除");
 		}
