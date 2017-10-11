@@ -98,45 +98,13 @@ $(function() {
 						"render": function ( data, type, row ) {
 							var jobKey = row.jobGroup + "_" + row.jobId;
 
-                            var glueTypeTitle = row.glueType;
-                            if ('GLUE_GROOVY'==row.glueType) {
-                                glueTypeTitle = "GLUE模式(Java)";
-                            } else if ('GLUE_SHELL'==row.glueType) {
-                                glueTypeTitle = "GLUE模式(Shell)";
-                            } else if ('GLUE_PYTHON'==row.glueType) {
-                                glueTypeTitle = "GLUE模式(Python)";
-                            }else if ('GLUE_NODEJS'==row.glueType) {
-                            	glueTypeTitle = "GLUE模式(Nodejs)";
-                            } else if ('BEAN'==row.glueType) {
-                                glueTypeTitle = "BEAN模式：" + row.executorHandler;
-                            }
-
                             var temp = '';
                             temp += '执行器地址：' + (row.executorAddress?row.executorAddress:'');
-                            temp += '<br>运行模式：' + glueTypeTitle;
                             temp += '<br>任务参数：' + row.executorParam;
 
                             return '<a class="logTips" href="javascript:;" >'+ jobKey +'<span style="display:none;">'+ temp +'</span></a>';
 						}
 					},
-					// { "data": 'executorAddress', "visible" : true},
-					// {
-					// 	"data": 'glueType',
-					//  	"visible" : true,
-					// 	"render": function ( data, type, row ) {
-					// 		if ('GLUE_GROOVY'==row.glueType) {
-					// 			return "GLUE模式(Java)";
-					// 		} else if ('GLUE_SHELL'==row.glueType) {
-					// 		 	return "GLUE模式(Shell)";
-					// 		} else if ('GLUE_PYTHON'==row.glueType) {
-					// 			return "GLUE模式(Python)";
-					// 		} else if ('BEAN'==row.glueType) {
-					// 		 	return "BEAN模式：" + row.executorHandler;
-					// 		}
-					// 		return row.executorHandler;
-					// 	 }
-					// },
-					// { "data": 'executorParam', "visible" : true},
 					{
 						"data": 'triggerTime',
 						"render": function ( data, type, row ) {
@@ -173,25 +141,7 @@ $(function() {
 	                	"render": function ( data, type, row ) {
 	                		return data?'<a class="logTips" href="javascript:;" >查看<span style="display:none;">'+ data +'</span></a>':"无";
 	                	}
-	                },
-	                {
-						"data": 'handleMsg' ,
-						"bSortable": false,
-						"width": "8%" ,
-	                	"render": function ( data, type, row ) {
-	                		// better support expression or string, not function
-	                		return function () {
-		                		if (row.triggerCode == 200){
-		                			var temp = '<a href="javascript:;" class="logDetail" _id="'+ row.id +'">执行日志</a>';
-		                			if(row.handleCode == 0){
-		                				temp += '<br><a href="javascript:;" class="logKill" _id="'+ row.id +'" style="color: red;" >终止任务</a>';
-		                			}
-		                			return temp;
-		                		}
-		                		return null;	
-	                		}
-	                	}
-	                }
+                    }
 	            ],
 		"language" : {
 			"sProcessing" : "处理中...",
@@ -238,90 +188,6 @@ $(function() {
 
 	});
 
-	/**
-	 * 终止任务
-	 */
-	$('#joblog_list').on('click', '.logKill', function(){
-		var _id = $(this).attr('_id');
-
-        layer.confirm('确认主动终止任务?', {icon: 3, title:'系统提示'}, function(index){
-            layer.close(index);
-
-            $.ajax({
-                type : 'POST',
-                url : base_url + '/joblog/logKill',
-                data : {"id":_id},
-                dataType : "json",
-                success : function(data){
-                    if (data.code == 200) {
-                        layer.open({
-                            title: '系统提示',
-                            content: '操作成功',
-                            icon: '1',
-                            end: function(layero, index){
-                                logTable.fnDraw();
-                            }
-                        });
-                    } else {
-                        layer.open({
-                            title: '系统提示',
-                            content: (data.msg || "操作失败"),
-                            icon: '2'
-                        });
-                    }
-                },
-            });
-        });
-
-	});
-
-	/**
-	 * 清理任务Log
-	 */
-	$('#clearLog').on('click', function(){
-
-		var jobGroup = $('#jobGroup').val();
-		var jobId = $('#jobId').val();
-
-		var jobGroupText = $("#jobGroup").find("option:selected").text();
-		var jobIdText = $("#jobId").find("option:selected").text();
-
-		$('#clearLogModal input[name=jobGroup]').val(jobGroup);
-		$('#clearLogModal input[name=jobId]').val(jobId);
-
-		$('#clearLogModal .jobGroupText').val(jobGroupText);
-		$('#clearLogModal .jobIdText').val(jobIdText);
-
-		$('#clearLogModal').modal('show');
-
-	});
-	$("#clearLogModal .ok").on('click', function(){
-		$.post(base_url + "/joblog/clearLog",  $("#clearLogModal .form").serialize(), function(data, status) {
-			if (data.code == "200") {
-				$('#clearLogModal').modal('hide');
-				layer.open({
-					title: '系统提示',
-					content: '日志清理成功',
-					icon: '1',
-					end: function(layero, index){
-						logTable.fnDraw();
-					}
-				});
-			} else {
-				layer.open({
-					title: '系统提示',
-					content: (data.msg || "日志清理失败"),
-					icon: '2'
-				});
-			}
-		});
-	});
-	$("#clearLogModal").on('hide.bs.modal', function () {
-		$("#clearLogModal .form")[0].reset();
-	});
-
-});
-
 
 // 提示-科技主题
 var ComAlertTec = {
@@ -359,3 +225,4 @@ var ComAlertTec = {
 		});
 	}
 };
+});
