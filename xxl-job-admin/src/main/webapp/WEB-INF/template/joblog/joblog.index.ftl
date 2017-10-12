@@ -77,9 +77,6 @@
                     <button class="btn btn-block btn-info" id="searchBtn">搜索</button>
                 </div>
 
-	            <div class="col-xs-1">
-                    <button class="btn btn-block btn-nomal" id="clearLog">清理</button>
-	            </div>
           	</div>
 			
 			<div class="row">
